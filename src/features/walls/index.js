@@ -7,6 +7,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 
 import routing from './walls.routes';
+import WallsController from './walls.controller';
 
-export default angular.module('zulucoda.scrum.walls', [uiRouter, routing])
+export default angular.module('zulucoda.scrum.walls', [uiRouter, routing, WallsController])
   .name;

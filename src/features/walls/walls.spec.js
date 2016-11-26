@@ -11,6 +11,7 @@ describe('Walls - Unit Test',() =>{
 
   describe('routes', ()=>{
     let state, currentState;
+
     beforeEach(angular.mock.inject(($state)=>{
       state = $state;
     }));
@@ -40,4 +41,28 @@ describe('Walls - Unit Test',() =>{
     });
   });
 
+  describe('controller', ()=> {
+    let controller, wall, rootScope;
+
+    beforeEach(angular.mock.inject(($controller, $rootScope)=>{
+      controller = $controller;
+      rootScope = $rootScope;
+    }));
+
+    function initialiseController() {
+      wall = controller('WallsController', {});
+      rootScope.$digest();
+    }
+
+    describe('initialise controller', ()=>{
+      beforeEach(()=>{
+        initialiseController();
+      });
+
+      it('should set wall.walls empty array', ()=>{
+        expect(wall.walls).toEqual([])
+      });
+    });
+
+  });
 });
