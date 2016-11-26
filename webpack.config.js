@@ -79,7 +79,7 @@ module.exports = function makeWebpackConfig () {
   // Initialize module
   config.module = {
     preLoaders: [],
-    loaders: [{
+    loaders: [ {
       // JS LOADER
       // Reference: https://github.com/babel/babel-loader
       // Transpile .js files using babel-loader
@@ -116,7 +116,10 @@ module.exports = function makeWebpackConfig () {
       // Allow loading html through js
       test: /\.html$/,
       loader: 'raw'
-    }]
+    }, {
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: "url-loader?limit=10000&minetype=application/font-woff"
+    }, { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }]
   };
 
   // ISTANBUL LOADER
@@ -144,7 +147,7 @@ module.exports = function makeWebpackConfig () {
    */
   config.postcss = [
     autoprefixer({
-      browsers: ['last 2 version']
+      browsers: [ 'last 2 version' ]
     })
   ];
 
@@ -168,7 +171,7 @@ module.exports = function makeWebpackConfig () {
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
       // Extract css files
       // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin('[name].[hash].css', {disable: !isProd})
+      new ExtractTextPlugin('[name].[hash].css', { disable: !isProd })
     )
   }
 
@@ -189,9 +192,9 @@ module.exports = function makeWebpackConfig () {
 
       // Copy assets from the public folder
       // Reference: https://github.com/kevlened/copy-webpack-plugin
-      new CopyWebpackPlugin([{
+      new CopyWebpackPlugin([ {
         from: __dirname + '/src/public'
-      }])
+      } ])
     )
   }
 
