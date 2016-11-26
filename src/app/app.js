@@ -1,6 +1,7 @@
 import angular from 'angular';
 import routing from './app.config';
 import uiRouter from 'angular-ui-router';
+import uiBootstrap from 'angular-ui-bootstrap';
 
 import walls from './../features/walls'
 
@@ -12,7 +13,7 @@ import '../style/app.css'
 
 const MODULE_NAME = 'zulucoda.scrum';
 
-angular.module(MODULE_NAME, [uiRouter, walls])
+angular.module(MODULE_NAME, [uiRouter, uiBootstrap, walls])
   .config(routing);
 
 export default MODULE_NAME;
