@@ -8,6 +8,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.css';
 import '../style/lib/right.dark.css';
 import 'font-awesome-webpack';
+import '../style/app.css'
 
 const MODULE_NAME = 'zulucoda.scrum';
 
