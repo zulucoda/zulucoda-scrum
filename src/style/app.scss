@@ -1,0 +1,54 @@
+/*
+ * Text Colours
+ */
+
+$text-colour-danger: #a94442;
+$text-colour-primary: #337ab7;
+$text-colour-warning: #8a6d3b;
+$text-colour-success: #3c763d;
+
+.text-colour-danger {
+  color: $text-colour-danger;
+}
+
+.text-colour-primary {
+  color: $text-colour-primary;
+}
+
+.text-colour-warning {
+  color: $text-colour-warning;
+}
+
+.text-colour-success {
+  color: $text-colour-success;
+}
+
+
+
+
+
+/*
+ * Override template styles
+ */
+.wrapper {
+
+  .main {
+    padding-left: 0;
+    margin-left: 0;
+
+    .main__scroll {
+      .main__cont {
+        .main-heading {
+          .main-filter {
+            .main-filter__search {
+              button {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

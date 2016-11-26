@@ -1,22 +1,25 @@
-/* styles in src/style directory are applied to the whole page */
-body {
-  background: #0147A7;
-  color: #fff;
-}
+/*
+ * Text Colours
+ */
+.text-colour-danger {
+  color: #a94442; }
 
-a {
-  color: #03A9F4;
-}
+.text-colour-primary {
+  color: #337ab7; }
 
-main {
-  padding: 1em;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-  margin-top: 50px;
-  display: block;
-}
+.text-colour-warning {
+  color: #8a6d3b; }
 
-footer {
-  text-align: center;
-  font-size: 0.8em;
-}
+.text-colour-success {
+  color: #3c763d; }
+
+/*
+ * Override template styles
+ */
+.wrapper .main {
+  padding-left: 0;
+  margin-left: 0; }
+  .wrapper .main .main__scroll .main__cont .main-heading .main-filter .main-filter__search button {
+    width: 100%; }
+
+/*# sourceMappingURL=app.css.map */
