@@ -14,7 +14,7 @@ function WallsController(WallsService) {
   wall.walls = [];
 
   WallsService.getAll().then(function (results) {
-    wall.walls = results;
+    wall.walls = results.data.walls;
   })
 }
 

@@ -49,7 +49,7 @@ describe('Walls - Unit Test',() =>{
       controller = $controller;
       rootScope = $rootScope;
       wallsService = jasmine.createSpyObj('WallsService', ['getAll']);
-      wallsService.getAll.and.returnValue($q.when(zulucodaScrumData.walls));
+      wallsService.getAll.and.returnValue($q.when({data: zulucodaScrumData}));
     }));
 
     function initialiseController() {
