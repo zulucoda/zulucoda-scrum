@@ -25,7 +25,6 @@ describe('Walls Services - Unit Test', ()=>{
       actual = result.data;
     });
     http.flush();
-    console.log('actual', actual);
     expect(actual).toEqual(zulucodaScrumData.walls);
   });
 
