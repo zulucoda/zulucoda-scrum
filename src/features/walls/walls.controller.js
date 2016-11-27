@@ -5,14 +5,21 @@
  */
 import angular from 'angular';
 
-function WallsController() {
+import wallsService from './walls.service';
+
+function WallsController(WallsService) {
 
   let wall = this;
 
   wall.walls = [];
 
+  WallsService.getAll().then(function (results) {
+    wall.walls = results;
+  })
 }
 
-export default angular.module('zulucoda.scrum.walls.controller', [])
+export default angular.module('zulucoda.scrum.walls.controller', [
+  wallsService
+])
   .controller('WallsController', WallsController)
   .name;

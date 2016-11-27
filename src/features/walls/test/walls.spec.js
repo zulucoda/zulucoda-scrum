@@ -3,7 +3,8 @@
  * Copyright mfbproject.co.za - muzi@mfbproject.co.za
  * Copyright zulucoda - mfbproject
  */
-import walls from './index';
+import walls from '../index';
+let zulucodaScrumData = require('json-loader!./../../../public/data/zulucoda.scrum.data.json');
 
 describe('Walls - Unit Test',() =>{
 
@@ -42,15 +43,19 @@ describe('Walls - Unit Test',() =>{
   });
 
   describe('controller', ()=> {
-    let controller, wall, rootScope;
+    let controller, wall, rootScope, wallsService;
 
-    beforeEach(angular.mock.inject(($controller, $rootScope)=>{
+    beforeEach(angular.mock.inject(($controller, $rootScope, $q)=>{
       controller = $controller;
       rootScope = $rootScope;
+      wallsService = jasmine.createSpyObj('WallsService', ['getAll']);
+      wallsService.getAll.and.returnValue($q.when(zulucodaScrumData.walls));
     }));
 
     function initialiseController() {
-      wall = controller('WallsController', {});
+      wall = controller('WallsController', {
+        WallsService: wallsService
+      });
       rootScope.$digest();
     }
 
@@ -59,8 +64,9 @@ describe('Walls - Unit Test',() =>{
         initialiseController();
       });
 
-      it('should set wall.walls empty array', ()=>{
-        expect(wall.walls).toEqual([])
+      it('should populate wall.walls with wall list from service', ()=>{
+        expect(wallsService.getAll).toHaveBeenCalled();
+        expect(wall.walls).toEqual(zulucodaScrumData.walls);
       });
     });
 
