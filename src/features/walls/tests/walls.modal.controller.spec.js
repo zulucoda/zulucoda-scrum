@@ -13,7 +13,7 @@ describe('Walls Modal - Unit Test', ()=>{
     angular.mock.module(wallsModalModule);
     angular.mock.inject(($controller)=>{
       controller = $controller;
-      uibModalInstance = jasmine.createSpyObj('$uibModalInstance', ['dismiss']);
+      uibModalInstance = jasmine.createSpyObj('$uibModalInstance', ['dismiss', 'close']);
     });
   });
 
@@ -33,6 +33,14 @@ describe('Walls Modal - Unit Test', ()=>{
         wallModal.cancel();
         expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel');
       });
+    });
+
+    describe('wallModal.add', ()=>{
+      it('should call uibModalInstance.close', ()=>{
+        wallModal.add();
+        expect(uibModalInstance.close).toHaveBeenCalled();
+      });
+
     });
   });
 

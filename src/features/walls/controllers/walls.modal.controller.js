@@ -13,6 +13,10 @@ function WallsModalController ($uibModalInstance) {
     $uibModalInstance.dismiss('cancel');
   };
 
+  wallModal.add = () => {
+    $uibModalInstance.close();
+  };
+
 }
 
 export default angular.module('zulucoda.scrum.walls.modal.controller', [])

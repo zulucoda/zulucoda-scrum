@@ -6,6 +6,7 @@
 import angular from 'angular';
 
 import wallsService from '../services/walls.service';
+import wallsModalController from './walls.modal.controller';
 
 function WallsController(WallsService, $uibModal) {
 
@@ -23,9 +24,9 @@ function WallsController(WallsService, $uibModal) {
       animation: true,
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
-      templateUrl: require('./../partials/walls.modal.html'),
-      controller: '',
-      controllerAs: '',
+      template: require('./../partials/walls.modal.html'),
+      controller: 'WallsModalController',
+      controllerAs: 'wallModal',
       size: 'lg',
       resolve: {
         items: function () {
@@ -38,7 +39,8 @@ function WallsController(WallsService, $uibModal) {
 }
 
 export default angular.module('zulucoda.scrum.walls.controller', [
-  wallsService
+  wallsService,
+  wallsModalController
 ])
   .controller('WallsController', WallsController)
   .name;
