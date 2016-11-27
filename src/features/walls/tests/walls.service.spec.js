@@ -22,7 +22,7 @@ describe('Walls Services - Unit Test', ()=>{
   it('should get data from service', () => {
     http.expectGET('/data/zulucoda.scrum.data.json').respond(200, zulucodaScrumData);
     service.getAll().then((result)=>{
-      actual = result.data.walls;
+      actual = result;
     });
     http.flush();
     expect(actual).toEqual(zulucodaScrumData.walls);

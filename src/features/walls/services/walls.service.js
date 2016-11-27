@@ -6,13 +6,16 @@
 import angular from 'angular';
 
 function WallsService ($http) {
- return {
-   getAll : () => {
-     return $http.get('/data/zulucoda.scrum.data.json').success((response) => {
-       return response.data;
-     });
-   }
- }
+  let walls = [];
+
+  return {
+    getAll: () => {
+       return $http.get('/data/zulucoda.scrum.data.json').then((response) => {
+          walls = response.data.walls;
+          return response.data.walls;
+        });
+    }
+  }
 }
 
 export default angular.module('zulucoda.scrum.walls.service', [])

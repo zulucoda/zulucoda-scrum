@@ -15,7 +15,7 @@ function WallsController(WallsService, $uibModal) {
   wall.walls = [];
 
   WallsService.getAll().then((results) => {
-    wall.walls = results.data.walls;
+    wall.walls = results;
   });
 
   wall.open = () => {

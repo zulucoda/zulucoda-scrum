@@ -84,7 +84,7 @@ describe('Walls - Unit Test',() =>{
       controller = $controller;
       rootScope = $rootScope;
       wallsService = jasmine.createSpyObj('WallsService', ['getAll', 'add']);
-      wallsService.getAll.and.returnValue($q.when({data: zulucodaScrumData}));
+      wallsService.getAll.and.returnValue($q.when(zulucodaScrumData.walls));
 
       uibModal = jasmine.createSpyObj('$uibModal', ['open']);
       uibModal.open.and.callFake((options)=>{
