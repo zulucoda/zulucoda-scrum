@@ -43,7 +43,7 @@ describe('Walls - Unit Test',() =>{
   });
 
   describe('controller', ()=> {
-    let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance;
+    let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance, wallModalOptions, actualOptions;
 
     fakeModalInstance = {
       result: {
@@ -60,6 +60,19 @@ describe('Walls - Unit Test',() =>{
       }
     };
 
+    wallModalOptions = {
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      template: require('./../partials/walls.modal.html'),
+      controller: 'WallsModalController',
+      controllerAs: 'wallModal',
+      size: 'lg',
+      resolve: {
+        currentWall: jasmine.any(Function)
+      }
+    };
+
     beforeEach(angular.mock.inject(($controller, $rootScope, $q)=>{
       controller = $controller;
       rootScope = $rootScope;
@@ -67,7 +80,10 @@ describe('Walls - Unit Test',() =>{
       wallsService.getAll.and.returnValue($q.when({data: zulucodaScrumData}));
 
       uibModal = jasmine.createSpyObj('$uibModal', ['open']);
-      uibModal.open.and.returnValue(fakeModalInstance);
+      uibModal.open.and.callFake((options)=>{
+        actualOptions = options;
+        return fakeModalInstance ;
+      });
     }));
 
     function initialiseController() {
@@ -111,8 +127,9 @@ describe('Walls - Unit Test',() =>{
       describe('wall.open', ()=>{
         it('should open ui wall modal', ()=>{
           wall.open();
-          expect(uibModal.open).toHaveBeenCalled();
-        })
+          expect(uibModal.open).toHaveBeenCalledWith(wallModalOptions);
+          expect(actualOptions.resolve.currentWall).toBeDefined();
+        });
       });
     });
 

@@ -29,8 +29,8 @@ function WallsController(WallsService, $uibModal) {
       controllerAs: 'wallModal',
       size: 'lg',
       resolve: {
-        items: function () {
-          // return $ctrl.items;
+        currentWall: function () {
+           return wall.currentWall;
         }
       }
     });
