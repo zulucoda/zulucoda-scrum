@@ -2,9 +2,18 @@
     <h3 class="modal-title" id="modal-title">wall</h3>
 </div>
 <div class="modal-body" id="modal-body">
-    body
+    <form name="wallModalForm" class="form parsley-form" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : !wallModal.wall.name }">
+            <label class="control-label">name (name of project)</label>
+            <input type="text" placeholder="e.g zulucoda alfa romeo website" class="form-control"
+                   required ng-model="wallModal.wall.name">
+            <p ng-show="!wallModal.wall.name" class="help-block">
+                wall name is required.</p>
+        </div>
+    </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="wallModal.add()">add</button>
-    <button class="btn btn-warning" type="button" ng-click="wallModal.cancel()">cancel</button>
+    <button class="btn btn-danger" type="button" ng-disabled="wallModalForm.$invalid"
+            ng-click="wallModal.add()">add</button>
+    <button class="btn btn-default" type="button" ng-click="wallModal.cancel()">cancel</button>
 </div>

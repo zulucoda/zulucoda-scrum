@@ -4,16 +4,19 @@
  * Copyright zulucoda - mfbproject
  */
 import wallsModalModule from './../controllers/walls.modal.controller';
+import wallModule from './../modules/wall.module';
 
 describe('Walls Modal - Unit Test', ()=>{
 
-  let controller, wallModal, uibModalInstance;
+  let controller, wallModal, uibModalInstance, _wallModule;
 
   beforeEach(()=>{
     angular.mock.module(wallsModalModule);
-    angular.mock.inject(($controller)=>{
+    angular.mock.module(wallModule);
+    angular.mock.inject(($controller, WallModule)=>{
       controller = $controller;
       uibModalInstance = jasmine.createSpyObj('$uibModalInstance', ['dismiss', 'close']);
+      _wallModule = WallModule;
     });
   });
 
@@ -22,6 +25,14 @@ describe('Walls Modal - Unit Test', ()=>{
       $uibModalInstance: uibModalInstance
     });
   }
+
+  describe('initialise controller', ()=>{
+
+    it('should set wallModal.wall object when adding new wall', ()=>{
+      initialiseController();
+      expect(wallModal.wall).toEqual(_wallModule.wall);
+    });
+  });
 
   describe('controller methods', ()=>{
     beforeEach(()=>{
@@ -37,8 +48,9 @@ describe('Walls Modal - Unit Test', ()=>{
 
     describe('wallModal.add', ()=>{
       it('should call uibModalInstance.close', ()=>{
+        wallModal.wall.name = 'some new wall name';
         wallModal.add();
-        expect(uibModalInstance.close).toHaveBeenCalled();
+        expect(uibModalInstance.close).toHaveBeenCalledWith(wallModal.wall);
       });
 
     });

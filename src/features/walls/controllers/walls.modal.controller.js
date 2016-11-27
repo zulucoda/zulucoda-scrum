@@ -5,20 +5,27 @@
  */
 import angular from 'angular';
 
-function WallsModalController ($uibModalInstance) {
+import wallModule from './../modules/wall.module';
+
+
+function WallsModalController ($uibModalInstance, WallModule) {
 
   let wallModal = this;
+
+  wallModal.wall = WallModule.wall;
 
   wallModal.cancel = () => {
     $uibModalInstance.dismiss('cancel');
   };
 
   wallModal.add = () => {
-    $uibModalInstance.close();
+    $uibModalInstance.close(wallModal.wall);
   };
 
 }
 
-export default angular.module('zulucoda.scrum.walls.modal.controller', [])
+export default angular.module('zulucoda.scrum.walls.modal.controller', [
+  wallModule
+])
   .controller('WallsModalController', WallsModalController)
   .name;
