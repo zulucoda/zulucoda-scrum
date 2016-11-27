@@ -3,7 +3,7 @@
  * Copyright mfbproject.co.za - muzi@mfbproject.co.za
  * Copyright zulucoda - mfbproject
  */
-import wallsService from './../walls.service';
+import wallsService from '../services/walls.service';
 let zulucodaScrumData = require('json-loader!./../../../public/data/zulucoda.scrum.data.json');
 
 describe('Walls Services - Unit Test', ()=>{

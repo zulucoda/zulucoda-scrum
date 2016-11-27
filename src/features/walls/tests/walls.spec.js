@@ -43,18 +43,37 @@ describe('Walls - Unit Test',() =>{
   });
 
   describe('controller', ()=> {
-    let controller, wall, rootScope, wallsService;
+    let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance;
+
+    fakeModalInstance = {
+      result: {
+        then: function(confirmCallback, cancelCallback) {
+          this.confirmCallBack = confirmCallback;
+          this.cancelCallback = cancelCallback;
+        }
+      },
+      close: function( item ) {
+        this.result.confirmCallBack( item );
+      },
+      dismiss: function( type ) {
+        this.result.cancelCallback( type );
+      }
+    };
 
     beforeEach(angular.mock.inject(($controller, $rootScope, $q)=>{
       controller = $controller;
       rootScope = $rootScope;
-      wallsService = jasmine.createSpyObj('WallsService', ['getAll']);
+      wallsService = jasmine.createSpyObj('WallsService', ['getAll', 'add']);
       wallsService.getAll.and.returnValue($q.when({data: zulucodaScrumData}));
+
+      uibModal = jasmine.createSpyObj('$uibModal', ['open']);
+      uibModal.open.and.returnValue(fakeModalInstance);
     }));
 
     function initialiseController() {
       wall = controller('WallsController', {
-        WallsService: wallsService
+        WallsService: wallsService,
+        $uibModal: uibModal
       });
       rootScope.$digest();
     }
@@ -67,6 +86,33 @@ describe('Walls - Unit Test',() =>{
       it('should populate wall.walls with wall list from service', ()=>{
         expect(wallsService.getAll).toHaveBeenCalled();
         expect(wall.walls).toEqual(zulucodaScrumData.walls);
+      });
+    });
+
+    describe('controller methods', ()=>{
+      beforeEach(()=>{
+        initialiseController();
+      });
+
+      // describe('wall.add', ()=>{
+      //   describe('when successful', ()=>{
+      //     beforeEach(()=>{
+      //       wall.name = 'some test wall name';
+      //     });
+      //
+      //     it('should add append new wall with existing walls', ()=>{
+      //       wall.add();
+      //       expect(wallsService.add).toHaveBeenCalledWith(wall.name);
+      //       expect(wall.walls.length).toBe(4);
+      //     });
+      //   });
+      // });
+
+      describe('wall.open', ()=>{
+        it('should open ui wall modal', ()=>{
+          wall.open();
+          expect(uibModal.open).toHaveBeenCalled();
+        })
       });
     });
 

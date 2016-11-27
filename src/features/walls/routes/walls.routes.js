@@ -9,7 +9,7 @@ export default function routes($stateProvider) {
   $stateProvider
     .state('walls', {
       url: '/',
-      template: require('./partials/walls.html'),
+      template: require('./../partials/walls.html'),
       controller: 'WallsController',
       controllerAs: 'wall'
     });
