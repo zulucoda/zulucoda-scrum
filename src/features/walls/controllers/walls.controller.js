@@ -20,7 +20,7 @@ function WallsController(WallsService, $uibModal) {
 
   wall.open = () => {
 
-    $uibModal.open({
+    let modalInstance = $uibModal.open({
       animation: true,
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
@@ -33,6 +33,10 @@ function WallsController(WallsService, $uibModal) {
            return wall.currentWall;
         }
       }
+    });
+
+    modalInstance.result.then(function (currentWall) {
+      wall.currentWall = currentWall;
     });
 
   };

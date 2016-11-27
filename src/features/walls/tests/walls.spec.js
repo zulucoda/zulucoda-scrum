@@ -46,17 +46,24 @@ describe('Walls - Unit Test',() =>{
     let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance, wallModalOptions, actualOptions;
 
     fakeModalInstance = {
-      result: {
-        then: function(confirmCallback, cancelCallback) {
-          this.confirmCallBack = confirmCallback;
-          this.cancelCallback = cancelCallback;
+      close: jasmine.createSpy('modalInstance.close').and.callFake(function (data) {
+        if(this.result.confirmCB && typeof this.result.confirmCB === 'function') {
+          this.result.confirmCB(data);
         }
-      },
-      close: function( item ) {
-        this.result.confirmCallBack( item );
-      },
-      dismiss: function( type ) {
-        this.result.cancelCallback( type );
+      }),
+      dismiss: jasmine.createSpy('modalInstance.dismiss').and.callFake(function (reason) {
+        if(this.result.cancelCB && typeof this.result.cancelCB === 'function') {
+          this.result.cancelCB(reason);
+        }
+      }),
+      result: {
+        then: jasmine.createSpy('modalInstance.result.then').and.callFake(function (confirm, cancel) {
+          this.confirmCB = confirm || this.confirmCB;
+          this.cancelCB = cancel || this.cancelCB;
+        }),
+        catch: jasmine.createSpy('modalInstance.result.catch').and.callFake(function (cb) {
+          this.cancelCB = cb || this.cancelCB;
+        })
       }
     };
 
@@ -126,9 +133,15 @@ describe('Walls - Unit Test',() =>{
 
       describe('wall.open', ()=>{
         it('should open ui wall modal', ()=>{
+          wall.currentWall = {};
           wall.open();
           expect(uibModal.open).toHaveBeenCalledWith(wallModalOptions);
-          expect(actualOptions.resolve.currentWall).toBeDefined();
+          expect(actualOptions.resolve.currentWall()).toEqual({});
+        });
+        it('should call modalInstance.result on modal close', ()=>{
+          let modalInstance = uibModal.open(wallModalOptions);
+          modalInstance.close({});
+          expect(modalInstance.result.then).toHaveBeenCalled();
         });
       });
     });
