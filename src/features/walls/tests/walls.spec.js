@@ -49,7 +49,7 @@ describe('Walls - Unit Test',() =>{
 
   describe('controller', ()=> {
     let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance, wallModalOptions, actualOptions,
-      _wallModule;
+      _wallModule, location;
 
     fakeModalInstance = {
       close: jasmine.createSpy('modalInstance.close').and.callFake(function (data) {
@@ -83,7 +83,7 @@ describe('Walls - Unit Test',() =>{
       size: 'lg'
     };
 
-    beforeEach(angular.mock.inject(($controller, $rootScope, $q, WallModule)=>{
+    beforeEach(angular.mock.inject(($controller, $rootScope, $q, WallModule, $location)=>{
       controller = $controller;
       rootScope = $rootScope;
       wallsService = jasmine.createSpyObj('WallsService', ['getAll', 'add']);
@@ -96,12 +96,15 @@ describe('Walls - Unit Test',() =>{
       });
 
       _wallModule = WallModule;
+
+      location = $location;
     }));
 
     function initialiseController() {
       wall = controller('WallsController', {
         WallsService: wallsService,
-        $uibModal: uibModal
+        $uibModal: uibModal,
+        $location: location
       });
       rootScope.$digest();
     }
@@ -137,6 +140,18 @@ describe('Walls - Unit Test',() =>{
           rootScope.$digest();
           expect(modalInstance.result.then).toHaveBeenCalled();
           expect(wallsService.add).toHaveBeenCalledWith(currentWall);
+        });
+      });
+
+      describe('wall.viewStories', ()=>{
+        beforeEach(()=>{
+          initialiseController();
+        });
+
+        it('should navigate to /stories/:wallId', ()=>{
+          let wallId = 1;
+          wall.viewStories(wallId);
+          expect(location.path()).toEqual('/stories/1');
         });
       });
     });

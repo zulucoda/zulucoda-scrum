@@ -8,7 +8,7 @@ import angular from 'angular';
 import wallsService from '../services/walls.service';
 import wallsModalController from './walls.modal.controller';
 
-function WallsController(WallsService, $uibModal) {
+function WallsController(WallsService, $uibModal, $location) {
 
   let wall = this;
 
@@ -34,6 +34,10 @@ function WallsController(WallsService, $uibModal) {
       WallsService.add(currentWall);
     });
 
+  };
+
+  wall.viewStories = (wallId) => {
+    $location.path('/stories/'+ wallId);
   };
 }
 
