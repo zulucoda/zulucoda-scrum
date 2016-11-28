@@ -35,7 +35,7 @@ describe('Walls Services - Unit Test', ()=>{
   });
 
   it('should add wall to walls', ()=>{
-    let wall = _wallModule;
+    let wall = _wallModule.wall;
     wall.name = 'some wall name';
     service.add(wall);
     service.getAll().then((result)=>{
@@ -43,6 +43,7 @@ describe('Walls Services - Unit Test', ()=>{
     });
     rootScope.$digest();
     expect(actual.length).toBe(4);
+    expect(actual[3].id).toEqual(4);
   });
 
 });

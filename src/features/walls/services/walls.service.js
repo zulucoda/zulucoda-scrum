@@ -19,6 +19,7 @@ function WallsService ($http, $q) {
         });
     },
     add: (wall) => {
+      wall.id = walls.length + 1;
      walls.push(wall);
     }
   }
