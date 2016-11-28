@@ -3,7 +3,7 @@
  * Copyright mfbproject.co.za - muzi@mfbproject.co.za
  * Copyright zulucoda - mfbproject
  */
-import walls from '../index';
+import walls from '../walls.index';
 import wallModule from '../modules/wall.module';
 
 let zulucodaScrumData = require('json-loader!./../../../public/data/zulucoda.scrum.data.json');

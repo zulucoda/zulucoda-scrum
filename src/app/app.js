@@ -3,7 +3,7 @@ import routing from './app.config';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 
-import walls from './../features/walls'
+import walls from './../features/walls/walls.index'
 
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.css';
