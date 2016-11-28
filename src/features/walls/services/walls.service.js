@@ -5,15 +5,21 @@
  */
 import angular from 'angular';
 
-function WallsService ($http) {
+function WallsService ($http, $q) {
   let walls = [];
 
   return {
     getAll: () => {
+      if(walls.length > 0)
+        return $q.resolve(walls);
+
        return $http.get('/data/zulucoda.scrum.data.json').then((response) => {
           walls = response.data.walls;
-          return response.data.walls;
+          return walls;
         });
+    },
+    add: (wall) => {
+     walls.push(wall);
     }
   }
 }
