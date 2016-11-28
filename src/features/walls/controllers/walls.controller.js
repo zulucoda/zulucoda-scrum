@@ -27,16 +27,11 @@ function WallsController(WallsService, $uibModal) {
       template: require('./../partials/walls.modal.html'),
       controller: 'WallsModalController',
       controllerAs: 'wallModal',
-      size: 'lg',
-      resolve: {
-        currentWall: function () {
-           return wall.currentWall;
-        }
-      }
+      size: 'lg'
     });
 
     modalInstance.result.then(function (currentWall) {
-      wall.currentWall = currentWall;
+      WallsService.add(currentWall);
     });
 
   };

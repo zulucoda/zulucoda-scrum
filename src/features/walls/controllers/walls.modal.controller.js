@@ -12,7 +12,7 @@ function WallsModalController ($uibModalInstance, WallModule) {
 
   let wallModal = this;
 
-  wallModal.wall = WallModule.wall;
+  wallModal.wall = angular.copy(WallModule.wall);
 
   wallModal.cancel = () => {
     $uibModalInstance.dismiss('cancel');

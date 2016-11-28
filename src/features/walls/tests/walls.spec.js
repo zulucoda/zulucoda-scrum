@@ -4,11 +4,16 @@
  * Copyright zulucoda - mfbproject
  */
 import walls from '../index';
+import wallModule from '../modules/wall.module';
+
 let zulucodaScrumData = require('json-loader!./../../../public/data/zulucoda.scrum.data.json');
 
 describe('Walls - Unit Test',() =>{
 
-  beforeEach(angular.mock.module(walls));
+  beforeEach(()=>{
+    angular.mock.module(walls);
+    angular.mock.module(wallModule);
+  });
 
   describe('routes', ()=>{
     let state, currentState;
@@ -43,7 +48,8 @@ describe('Walls - Unit Test',() =>{
   });
 
   describe('controller', ()=> {
-    let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance, wallModalOptions, actualOptions;
+    let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance, wallModalOptions, actualOptions,
+      _wallModule;
 
     fakeModalInstance = {
       close: jasmine.createSpy('modalInstance.close').and.callFake(function (data) {
@@ -74,13 +80,10 @@ describe('Walls - Unit Test',() =>{
       template: require('./../partials/walls.modal.html'),
       controller: 'WallsModalController',
       controllerAs: 'wallModal',
-      size: 'lg',
-      resolve: {
-        currentWall: jasmine.any(Function)
-      }
+      size: 'lg'
     };
 
-    beforeEach(angular.mock.inject(($controller, $rootScope, $q)=>{
+    beforeEach(angular.mock.inject(($controller, $rootScope, $q, WallModule)=>{
       controller = $controller;
       rootScope = $rootScope;
       wallsService = jasmine.createSpyObj('WallsService', ['getAll', 'add']);
@@ -91,6 +94,8 @@ describe('Walls - Unit Test',() =>{
         actualOptions = options;
         return fakeModalInstance ;
       });
+
+      _wallModule = WallModule;
     }));
 
     function initialiseController() {
@@ -117,31 +122,21 @@ describe('Walls - Unit Test',() =>{
         initialiseController();
       });
 
-      // describe('wall.add', ()=>{
-      //   describe('when successful', ()=>{
-      //     beforeEach(()=>{
-      //       wall.name = 'some test wall name';
-      //     });
-      //
-      //     it('should add append new wall with existing walls', ()=>{
-      //       wall.add();
-      //       expect(wallsService.add).toHaveBeenCalledWith(wall.name);
-      //       expect(wall.walls.length).toBe(4);
-      //     });
-      //   });
-      // });
-
       describe('wall.open', ()=>{
         it('should open ui wall modal', ()=>{
           wall.currentWall = {};
           wall.open();
           expect(uibModal.open).toHaveBeenCalledWith(wallModalOptions);
-          expect(actualOptions.resolve.currentWall()).toEqual({});
         });
         it('should call modalInstance.result on modal close', ()=>{
+          wall.open();
           let modalInstance = uibModal.open(wallModalOptions);
-          modalInstance.close({});
+          let currentWall = _wallModule.wall;
+          wall.name = 'some wall name';
+          modalInstance.close(currentWall);
+          rootScope.$digest();
           expect(modalInstance.result.then).toHaveBeenCalled();
+          expect(wallsService.add).toHaveBeenCalledWith(currentWall);
         });
       });
     });
