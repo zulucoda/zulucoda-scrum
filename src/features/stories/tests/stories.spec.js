@@ -79,7 +79,10 @@ describe('Stories - Unit Test', ()=>{
       template: require('./../partials/stories.modal.html'),
       controller: 'StoryModalController',
       controllerAs: 'storyModal',
-      size: 'lg'
+      size: 'lg',
+      resolve: {
+        currentStory: jasmine.any(Function)
+      }
     };
 
     beforeEach(()=>{
@@ -152,6 +155,11 @@ describe('Stories - Unit Test', ()=>{
         expect(stories.storyDone).toEqual(storyDone);
       });
 
+      it('should set stories.currentStory', ()=>{
+        initialiseController();
+        expect(stories.currentStory).toEqual(_storyModule.story);
+      });
+
     });
 
     describe('controller methods', ()=>{
@@ -160,13 +168,13 @@ describe('Stories - Unit Test', ()=>{
         it('should open ui story modal', ()=>{
           initialiseController();
           stories.currentStory = {};
-          stories.open();
-          expect(uibModal.open).toHaveBeenCalledWith  (storyModalOptions);
+          stories.open({});
+          expect(uibModal.open).toHaveBeenCalledWith(storyModalOptions);
+          expect(actualOptions.resolve.currentStory()).toEqual({});
         });
         it('should call modalInstance.result on modal close', ()=>{
           initialiseController();
-          stories.open();
-          let modalInstance = uibModal.open(storyModalOptions);
+          stories.currentWallId = 1;
           let currentStory = _storyModule.story;
           currentStory.name = 'some new wall name';
           currentStory.assignedTo = 'some user';
@@ -174,6 +182,8 @@ describe('Stories - Unit Test', ()=>{
           currentStory.estimate = 'some estimate';
           currentStory.status = 'some status';
           currentStory.wallId = 1;
+          stories.open(currentStory);
+          let modalInstance = uibModal.open(storyModalOptions);
           modalInstance.close(currentStory);
           rootScope.$digest();
           expect(modalInstance.result.then).toHaveBeenCalled();

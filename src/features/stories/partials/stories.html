@@ -8,7 +8,8 @@
         <form class="main-filter__search">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-success" ng-click="stories.open()">
+                    <button type="button" class="btn btn-success"
+                            ng-click="stories.open()">
                       <span class="panel-title">add story </span><span class="fa fa-plus-circle"></span>
                     </button>
                 </span>
@@ -25,7 +26,8 @@
                         <h3 class="panel-title">Backlog</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-12 story" ng-repeat="currentStory in stories.backlog">
+                        <div class="col-md-12 story" ng-repeat="currentStory in stories.backlog"
+                         ng-click="stories.open(currentStory)">
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{currentStory.name}}</h3>

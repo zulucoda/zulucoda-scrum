@@ -7,13 +7,16 @@ import angular from 'angular'
 import StoriesService from '../services/stories.service'
 import _ from 'lodash'
 import StoryModalController from './story.modal.controller'
+import storyModule from '../modules/story.module'
 
-function StoriesController ($stateParams, $location, StoriesService, $uibModal, $state) {
+function StoriesController ($stateParams, $location, StoriesService, $uibModal, StoryModule) {
 
   let stories = this;
 
   stories.currentWallId = $stateParams.wallId;
   if(!stories.currentWallId) return $location.path('/walls');
+
+  stories.currentStory = angular.copy(StoryModule.story);
 
   function retrieveStories () {
     StoriesService.getAllByWallId(stories.currentWallId).then((results) => {
@@ -31,7 +34,10 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
 
   retrieveStories();
 
-  stories.open = () => {
+  stories.open = (currentStory) => {
+
+    StoryModule.story = currentStory || StoryModule.story;
+    StoryModule.story.wallId = stories.currentWallId;
 
     let modalInstance = $uibModal.open({
       animation: true,
@@ -40,7 +46,12 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
       template: require('./../partials/stories.modal.html'),
       controller: 'StoryModalController',
       controllerAs: 'storyModal',
-      size: 'lg'
+      size: 'lg',
+      resolve: {
+        currentStory: () => {
+          return stories.currentStory;
+        }
+      }
     });
 
     modalInstance.result.then(function (currentStory) {
@@ -54,7 +65,8 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
 
 export default angular.module('zulucoda.scrum.stories.controller', [
   StoriesService,
-  StoryModalController
+  StoryModalController,
+  storyModule
 ])
   .controller('StoriesController', StoriesController)
   .name;

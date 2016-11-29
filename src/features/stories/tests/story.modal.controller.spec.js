@@ -22,7 +22,8 @@ describe('Stories Modal - Unit Test', ()=>{
 
   function initialiseController () {
     storyModal = controller('StoryModalController', {
-      $uibModalInstance: uibModalInstance
+      $uibModalInstance: uibModalInstance,
+      story: {}
     });
   }
 

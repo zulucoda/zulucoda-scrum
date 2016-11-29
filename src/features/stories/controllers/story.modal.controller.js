@@ -5,12 +5,13 @@
  */
 import angular from 'angular'
 import storyModule from './../modules/story.module'
+import angularUi from 'angular-ui-bootstrap'
 
 function StoryModalController ($uibModalInstance, StoryModule) {
 
   let storyModal = this;
 
-  storyModal.story = angular.copy(StoryModule.story);
+  storyModal.story = StoryModule.story;
 
   storyModal.cancel = () => {
     $uibModalInstance.dismiss('cancel');
@@ -23,7 +24,7 @@ function StoryModalController ($uibModalInstance, StoryModule) {
 }
 
 export default angular.module('zulucoda.scrum.story.modal.controller', [
-  storyModule
-])
-  .controller('StoryModalController', StoryModalController)
+  storyModule,
+  angularUi
+]).controller('StoryModalController', StoryModalController)
   .name;
