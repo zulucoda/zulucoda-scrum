@@ -39,7 +39,7 @@ describe('Stories Service - Unit Test', ()=>{
   });
 
 
-  it('should addOrEdit story to stories', ()=>{
+  it('should add story to stories', ()=>{
     let story = _storyModule.story;
     story.name = 'some new wall name';
     story.assignedTo = 'some user';
@@ -54,6 +54,19 @@ describe('Stories Service - Unit Test', ()=>{
     rootScope.$digest();
     expect(actual.length).toBe(20);
     expect(actual[19].id).toEqual(20);
+  });
+
+  it('should edit story to stories', ()=>{
+    let story = getStoriesForWallId[0];
+    story.name = 'edit some story name';
+    service.addOrEdit(story);
+    service.getAllByWallId(1).then((result)=>{
+      actual = result;
+    });
+    rootScope.$digest();
+    expect(actual.length).toBe(19);
+    expect(actual[0].id).toEqual(1);
+    expect(actual[0].name).toEqual('edit some story name');
   });
 
 });

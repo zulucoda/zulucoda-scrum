@@ -21,9 +21,13 @@ function StoriesService ($http, $q) {
     },
     addOrEdit: (story) => {
       let storiesForCurrentWall = _.filter(stories, (s) => { return s.wallId == story.wallId });
-
-      story.id = storiesForCurrentWall.length + 1;
-      stories.push(story);
+      if (story.id > 0){
+        let index = _.indexOf(stories, _.find(stories, {id: story.id}));
+        stories.splice(index, 1, story);
+      }else{
+        story.id = storiesForCurrentWall.length + 1;
+        stories.push(story);
+      }
     }
   }
 }
