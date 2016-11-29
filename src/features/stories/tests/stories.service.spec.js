@@ -39,7 +39,7 @@ describe('Stories Service - Unit Test', ()=>{
   });
 
 
-  it('should add story to stories', ()=>{
+  it('should addOrEdit story to stories', ()=>{
     let story = _storyModule.story;
     story.name = 'some new wall name';
     story.assignedTo = 'some user';
@@ -47,7 +47,7 @@ describe('Stories Service - Unit Test', ()=>{
     story.estimate = 'some estimate';
     story.status = 'some status';
     story.wallId = 1;
-    service.add(story);
+    service.addOrEdit(story);
     service.getAllByWallId(1).then((result)=>{
       actual = result;
     });

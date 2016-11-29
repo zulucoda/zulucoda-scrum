@@ -94,7 +94,7 @@ describe('Stories - Unit Test', ()=>{
           wallId: 1
         };
         location = $location;
-        storiesService = jasmine.createSpyObj('StoriesService', ['getAllByWallId', 'add']);
+        storiesService = jasmine.createSpyObj('StoriesService', ['getAllByWallId', 'addOrEdit']);
         storiesService.getAllByWallId.and.returnValue(q.when(getStoriesForWallId));
         _storyModule = StoryModule;
 
@@ -187,7 +187,7 @@ describe('Stories - Unit Test', ()=>{
           modalInstance.close(currentStory);
           rootScope.$digest();
           expect(modalInstance.result.then).toHaveBeenCalled();
-          expect(storiesService.add).toHaveBeenCalledWith(currentStory);
+          expect(storiesService.addOrEdit).toHaveBeenCalledWith(currentStory);
           expect(storiesService.getAllByWallId).toHaveBeenCalledWith(1);
         });
       });

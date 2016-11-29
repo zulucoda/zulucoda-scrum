@@ -47,7 +47,7 @@ describe('Stories Modal - Unit Test', ()=>{
       });
     });
 
-    describe('storyModal.add', ()=>{
+    describe('storyModal.addOrEdit', ()=>{
       it('should call uibModalInstance.close', ()=>{
         storyModal.story.name = 'some new wall name';
         storyModal.story.assignedTo = 'some user';
@@ -55,7 +55,7 @@ describe('Stories Modal - Unit Test', ()=>{
         storyModal.story.estimate = 'some estimate';
         storyModal.story.status = 'some status';
         storyModal.story.wallId = 1;
-        storyModal.add();
+        storyModal.addOrEdit();
         expect(uibModalInstance.close).toHaveBeenCalledWith(storyModal.story);
       });
 

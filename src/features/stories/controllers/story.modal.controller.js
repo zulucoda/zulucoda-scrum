@@ -17,7 +17,7 @@ function StoryModalController ($uibModalInstance, StoryModule) {
     $uibModalInstance.dismiss('cancel');
   };
 
-  storyModal.add = () => {
+  storyModal.addOrEdit = () => {
     $uibModalInstance.close(storyModal.story);
   };
 

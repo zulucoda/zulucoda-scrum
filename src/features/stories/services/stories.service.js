@@ -19,7 +19,7 @@ function StoriesService ($http, $q) {
         return _.filter(stories, (s) => { return s.wallId == wallId });
       });
     },
-    add: (story) => {
+    addOrEdit: (story) => {
       let storiesForCurrentWall = _.filter(stories, (s) => { return s.wallId == story.wallId });
 
       story.id = storiesForCurrentWall.length + 1;

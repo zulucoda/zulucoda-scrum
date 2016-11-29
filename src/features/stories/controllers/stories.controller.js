@@ -55,7 +55,7 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
     });
 
     modalInstance.result.then(function (currentStory) {
-      StoriesService.add(currentStory);
+      StoriesService.addOrEdit(currentStory);
       retrieveStories();
     });
 
