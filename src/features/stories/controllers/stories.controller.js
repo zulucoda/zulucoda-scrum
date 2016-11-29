@@ -16,7 +16,7 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
   stories.currentWallId = $stateParams.wallId;
   if(!stories.currentWallId) return $location.path('/walls');
 
-  stories.currentStory = angular.copy(StoryModule.story);
+  let clearStory = angular.copy(StoryModule.story);
 
   function retrieveStories () {
     StoriesService.getAllByWallId(stories.currentWallId).then((results) => {
@@ -29,6 +29,9 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
       stories.storyInProgress = _.filter(results, { 'status': 'in_progress' });
 
       stories.storyDone = _.filter(results, { 'status': 'done' });
+
+      //ToDo should have a method in StoryModule to clear example StoryModule.clear()
+      StoryModule.story = clearStory;
     });
   }
 
@@ -36,7 +39,7 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
 
   stories.open = (currentStory) => {
 
-    StoryModule.story = currentStory || StoryModule.story;
+    StoryModule.story = angular.copy(currentStory) || clearStory;
     StoryModule.story.wallId = stories.currentWallId;
 
     let modalInstance = $uibModal.open({

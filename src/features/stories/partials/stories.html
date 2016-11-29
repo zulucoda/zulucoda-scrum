@@ -64,7 +64,8 @@
                         <h3 class="panel-title">To Do</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-12 story" ng-repeat="currentStory in stories.storyTodo track by $index">
+                        <div class="col-md-12 story" ng-repeat="currentStory in stories.storyTodo track by $index"
+                             ng-click="stories.open(currentStory)">
                             <div class="panel panel-warning">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{currentStory.name}}</h3>
@@ -102,7 +103,8 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-md-12 story"
-                             ng-repeat="currentStory in stories.storyInProgress track by $index">
+                             ng-repeat="currentStory in stories.storyInProgress track by $index"
+                             ng-click="stories.open(currentStory)">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{currentStory.name}}</h3>
@@ -139,7 +141,8 @@
                         <h3 class="panel-title">Done</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-12 story" ng-repeat="currentStory in stories.storyDone track by $index">
+                        <div class="col-md-12 story" ng-repeat="currentStory in stories.storyDone track by $index"
+                             ng-click="stories.open(currentStory)">
                             <div class="panel panel-success">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{currentStory.name}}</h3>

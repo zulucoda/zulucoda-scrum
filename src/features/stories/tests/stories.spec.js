@@ -155,11 +155,6 @@ describe('Stories - Unit Test', ()=>{
         expect(stories.storyDone).toEqual(storyDone);
       });
 
-      it('should set stories.currentStory', ()=>{
-        initialiseController();
-        expect(stories.currentStory).toEqual(_storyModule.story);
-      });
-
     });
 
     describe('controller methods', ()=>{
