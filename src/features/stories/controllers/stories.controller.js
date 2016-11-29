@@ -15,17 +15,21 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
   stories.currentWallId = $stateParams.wallId;
   if(!stories.currentWallId) return $location.path('/walls');
 
-  StoriesService.getAllByWallId(stories.currentWallId).then((results)=>{
-    stories.stories = results;
+  function retrieveStories () {
+    StoriesService.getAllByWallId(stories.currentWallId).then((results) => {
+      stories.stories = results;
 
-    stories.backlog = _.filter(results, {'status': 'backlog'});
+      stories.backlog = _.filter(results, { 'status': 'backlog' });
 
-    stories.storyTodo = _.filter(results, {'status': 'todo'});
+      stories.storyTodo = _.filter(results, { 'status': 'todo' });
 
-    stories.storyInProgress = _.filter(results, {'status': 'in_progress'});
+      stories.storyInProgress = _.filter(results, { 'status': 'in_progress' });
 
-    stories.storyDone = _.filter(results, {'status': 'done'});
-  });
+      stories.storyDone = _.filter(results, { 'status': 'done' });
+    });
+  }
+
+  retrieveStories();
 
   stories.open = () => {
 
@@ -40,7 +44,8 @@ function StoriesController ($stateParams, $location, StoriesService, $uibModal, 
     });
 
     modalInstance.result.then(function (currentStory) {
-      // WallsService.add(currentStory);
+      StoriesService.add(currentStory);
+      retrieveStories();
     });
 
   };

@@ -4,12 +4,67 @@
 <div class="modal-body" id="modal-body">
     <form name="storyModalForm" class="form parsley-form" novalidate>
         <div class="form-group" ng-class="{ 'has-error' : !storyModal.story.name }">
-            <label class="control-label">name (name of project)</label>
-            <input type="text" placeholder="e.g zulucoda alfa romeo website" class="form-control"
+            <label class="control-label">name</label>
+            <input type="text" placeholder="e.g story name" class="form-control"
                    required ng-model="storyModal.story.name">
             <p ng-show="!storyModal.story.name" class="help-block">
                 story name is required.</p>
         </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : !storyModal.story.description}">
+            <label class="control-label">description</label>
+            <textarea  placeholder="e.g story description" class="form-control"
+                       required ng-model="storyModal.story.description"></textarea>
+            <p ng-show="!storyModal.story.description" class="help-block">
+                story description is required.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : !storyModal.story.assignedTo}">
+            <label class="control-label">assigned to</label>
+            <select placeholder="Select"
+                    class="form-control"
+                    required ng-model="storyModal.story.assignedTo">
+                <option value="Joe the Product owner">Joe the Product owner</option>
+                <option value="Mandy the Designer">Mandy the Designer</option>
+                <option value="Andrew the BA">Andrew the BA</option>
+                <option value="Roger the QA">Roger the QA</option>
+                <option value="David the Developer">David the Developer</option>
+            </select>
+
+            <p ng-show="!storyModal.story.assignedTo" class="help-block">
+                story assigned to is required.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : !storyModal.story.status}">
+            <label class="control-label">status</label>
+            <select placeholder="Select"
+                    class="form-control"
+                    required ng-model="storyModal.story.status">
+                <option value="backlog">backlog</option>
+                <option value="todo">to do</option>
+                <option value="in_progress">in_progress</option>
+                <option value="done">done</option>
+            </select>
+
+            <p ng-show="!storyModal.story.status" class="help-block">
+                story status is required.</p>
+        </div>
+
+
+        <div class="form-group" ng-class="{ 'has-error' : !storyModal.story.estimate}">
+            <label class="control-label">estimate</label>
+            <select placeholder="Select"
+                    class="form-control"
+                    required ng-model="storyModal.story.estimate">
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large">large</option>
+            </select>
+
+            <p ng-show="!storyModal.story.estimate" class="help-block">
+                story estimate is required.</p>
+        </div>
+
     </form>
 </div>
 <div class="modal-footer">
