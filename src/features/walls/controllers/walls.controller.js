@@ -3,12 +3,12 @@
  * Copyright mfbproject.co.za - muzi@mfbproject.co.za
  * Copyright zulucoda - mfbproject
  */
-import angular from 'angular';
+import angular from 'angular'
+import storiesRouter from '../../stories/routes/stories.routes'
+import wallsService from '../services/walls.service'
+import wallsModalController from './walls.modal.controller'
 
-import wallsService from '../services/walls.service';
-import wallsModalController from './walls.modal.controller';
-
-function WallsController(WallsService, $uibModal, $location) {
+function WallsController(WallsService, $uibModal, $state) {
 
   let wall = this;
 
@@ -37,11 +37,12 @@ function WallsController(WallsService, $uibModal, $location) {
   };
 
   wall.viewStories = (wallId) => {
-    $location.path('/stories/'+ wallId);
+    $state.go('stories', {wallId: wallId });
   };
 }
 
 export default angular.module('zulucoda.scrum.walls.controller', [
+  storiesRouter,
   wallsService,
   wallsModalController
 ])

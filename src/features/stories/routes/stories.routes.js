@@ -7,8 +7,8 @@ routes.$inject = ['$stateProvider'];
 
 export default function routes($stateProvider) {
   $stateProvider
-    .state('/stories/:wall-id',{
-      url: '/stories/:wall-id',
+    .state('stories',{
+      url: '/stories/:wallId',
       template: require('../partials/stories.html'),
       controller: 'StoriesController',
       controllerAs: 'stories'

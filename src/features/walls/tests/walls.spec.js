@@ -3,8 +3,8 @@
  * Copyright mfbproject.co.za - muzi@mfbproject.co.za
  * Copyright zulucoda - mfbproject
  */
-import walls from '../walls.index';
-import wallModule from '../modules/wall.module';
+import walls from '../walls.index'
+import wallModule from '../modules/wall.module'
 
 let zulucodaScrumData = require('json-loader!./../../../public/data/zulucoda.scrum.data.json');
 
@@ -49,7 +49,7 @@ describe('Walls - Unit Test',() =>{
 
   describe('controller', ()=> {
     let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance, wallModalOptions, actualOptions,
-      _wallModule, location;
+      _wallModule, state;
 
     fakeModalInstance = {
       close: jasmine.createSpy('modalInstance.close').and.callFake(function (data) {
@@ -83,7 +83,7 @@ describe('Walls - Unit Test',() =>{
       size: 'lg'
     };
 
-    beforeEach(angular.mock.inject(($controller, $rootScope, $q, WallModule, $location)=>{
+    beforeEach(angular.mock.inject(($controller, $rootScope, $q, WallModule, $state)=>{
       controller = $controller;
       rootScope = $rootScope;
       wallsService = jasmine.createSpyObj('WallsService', ['getAll', 'add']);
@@ -97,14 +97,14 @@ describe('Walls - Unit Test',() =>{
 
       _wallModule = WallModule;
 
-      location = $location;
+      state = $state;
     }));
 
     function initialiseController() {
       wall = controller('WallsController', {
         WallsService: wallsService,
         $uibModal: uibModal,
-        $location: location
+        $state: state
       });
       rootScope.$digest();
     }
@@ -149,9 +149,10 @@ describe('Walls - Unit Test',() =>{
         });
 
         it('should navigate to /stories/:wallId', ()=>{
+          spyOn(state, 'go');
           let wallId = 1;
           wall.viewStories(wallId);
-          expect(location.path()).toEqual('/stories/1');
+          expect(state.go).toHaveBeenCalledWith('stories', {wallId: wallId});
         });
       });
     });

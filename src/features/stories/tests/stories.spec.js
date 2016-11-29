@@ -19,12 +19,12 @@ describe('Stories - Unit Test', ()=>{
     beforeEach(()=>{
       angular.mock.inject(($state)=>{
         state = $state;
-        currentState = state.get('/stories/:wall-id');
+        currentState = state.get('stories');
       });
     });
 
     it('should associate current state with url', ()=>{
-      expect(currentState.url).toEqual('/stories/:wall-id');
+      expect(currentState.url).toEqual('/stories/:wallId');
     });
 
     it('should associate current state with template', ()=>{
