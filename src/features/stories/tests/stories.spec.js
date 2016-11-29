@@ -41,9 +41,14 @@ describe('Stories - Unit Test', ()=>{
   });
 
   describe('controller', ()=>{
-    let controller, stories, stateParams, location, getStoriesForWallId, storiesService, q, rootScope;
+    let controller, stories, stateParams, location, getStoriesForWallId, storiesService, q, rootScope, storyBacklog,
+      storyTodo, storyInProgress, storyDone;
 
-    getStoriesForWallId = _.find(zulucodaScrumData.stories, 'wallId', 1);
+    getStoriesForWallId = _.filter(zulucodaScrumData.stories, 'wallId', 1);
+    storyBacklog = _.filter(getStoriesForWallId, 'status', 'backlog');
+    storyTodo = _.filter(getStoriesForWallId, 'status', 'todo');
+    storyInProgress = _.filter(getStoriesForWallId, 'status', 'in_progress');
+    storyDone = _.filter(getStoriesForWallId, 'status', 'done');
 
     beforeEach(()=>{
       angular.mock.inject(($controller, $location, $q, $rootScope)=>{
@@ -85,6 +90,26 @@ describe('Stories - Unit Test', ()=>{
         initialiseController();
         expect(storiesService.getAllByWallId).toHaveBeenCalledWith(1);
         expect(stories.stories).toEqual(getStoriesForWallId);
+      });
+
+      it('should set stories.backlog', ()=>{
+        initialiseController();
+        expect(stories.backlog).toEqual(storyBacklog);
+      });
+
+      it('should set stories.storyTodo', ()=>{
+        initialiseController();
+        expect(stories.storyTodo).toEqual(storyTodo);
+      });
+
+      it('should set stories.storyInProgress', ()=>{
+        initialiseController();
+        expect(stories.storyInProgress).toEqual(storyInProgress);
+      });
+
+      it('should set stories.storyDone', ()=>{
+        initialiseController();
+        expect(stories.storyDone).toEqual(storyDone);
       });
 
     });

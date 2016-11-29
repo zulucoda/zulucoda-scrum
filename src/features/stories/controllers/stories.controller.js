@@ -5,6 +5,7 @@
  */
 import angular from 'angular'
 import StoriesService from '../services/stories.service'
+import _ from 'lodash'
 
 function StoriesController ($stateParams, $location, StoriesService) {
 
@@ -15,6 +16,14 @@ function StoriesController ($stateParams, $location, StoriesService) {
 
   StoriesService.getAllByWallId(stories.currentWallId).then((results)=>{
     stories.stories = results;
+
+    stories.backlog = _.filter(results, 'status', 'backlog');
+
+    stories.storyTodo = _.filter(results, 'status', 'todo');
+
+    stories.storyInProgress = _.filter(results, 'status', 'in_progress');
+
+    stories.storyDone = _.filter(results, 'status', 'done');
   });
 
 }

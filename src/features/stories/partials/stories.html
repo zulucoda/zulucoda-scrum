@@ -1,1 +1,91 @@
-<h2>Stories</h2>
+<div class="main-heading">
+    <div class="main-title">
+        <ol class="breadcrumb">
+            <li class="active">Stories for {{stories.currentWallName}}</li>
+        </ol>
+    </div>
+    <div class="main-filter">
+        <form class="main-filter__search">
+            <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success">
+                                          <span class="panel-title">add story </span><div class="fa fa-plus-circle"></div>
+                                        </button>
+                                    </span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container-fluid half-padding">
+    <div class="pages pages_dashboard">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Backlog</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12" ng-repeat="currentStory in stories.backlog">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{currentStory.name}}</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>{{currentStory.description}}</p>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="ov-widget">
+                                        <div class="ov-widget__list">
+                                            <div class="ov-widget__item ov-widget__item_dec">
+                                                <div class="ov-widget__value text-colour-danger">{{currentStory.assignedTo}}</div>
+                                                <div class="ov-widget__info">
+                                                    <div class="ov-widget__title">Assigned To</div>
+                                                </div>
+                                            </div>
+                                            <div class="ov-widget__item ov-widget__item_warn">
+                                                <div class="ov-widget__value text-colour-warning">{{currentStory.estimate}}</div>
+                                                <div class="ov-widget__info">
+                                                    <div class="ov-widget__title">Estimate</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">To Do</h3>
+                    </div>
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">In Progress</h3>
+                    </div>
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Done</h3>
+                    </div>
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

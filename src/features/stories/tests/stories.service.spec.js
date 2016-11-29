@@ -12,7 +12,7 @@ describe('Stories Service - Unit Test', ()=>{
 
   let http, service, actual, getStoriesForWallId;
 
-  getStoriesForWallId = _.find(zulucodaScrumData.stories, 'wallId', 1);
+  getStoriesForWallId = _.filter(zulucodaScrumData.stories, 'wallId', 1);
 
   beforeEach(()=>{
     angular.mock.module(storiesService);

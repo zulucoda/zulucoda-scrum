@@ -4,7 +4,6 @@
  * Copyright zulucoda - mfbproject
  */
 import angular from 'angular'
-import storiesRouter from '../../stories/routes/stories.routes'
 import wallsService from '../services/walls.service'
 import wallsModalController from './walls.modal.controller'
 
@@ -42,7 +41,6 @@ function WallsController(WallsService, $uibModal, $state) {
 }
 
 export default angular.module('zulucoda.scrum.walls.controller', [
-  storiesRouter,
   wallsService,
   wallsModalController
 ])

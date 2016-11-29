@@ -12,7 +12,7 @@ function StoriesService ($http) {
     getAllByWallId: (wallId) => {
       return $http.get('/data/zulucoda.scrum.data.json').then((response) => {
         stories = response.data.stories;
-        return _.find(stories, 'wallId', wallId);
+        return _.filter(stories, 'wallId', wallId);
       });
     }
   }
