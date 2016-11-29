@@ -2,21 +2,21 @@
  * Text Colours
  */
 .text-colour-danger {
-  color: #a94442; }
+  color: #ed4949 !important; }
 
 .text-colour-primary {
-  color: #337ab7; }
+  color: #1c8ed7 !important; }
 
 .text-colour-warning {
-  color: #8a6d3b; }
+  color: #FED42A !important; }
 
 .text-colour-success {
-  color: #3c763d; }
+  color: #20c05c !important; }
 
 /*
  * wall
  */
-.wall {
+.wall, .story {
   cursor: pointer; }
 
 /*

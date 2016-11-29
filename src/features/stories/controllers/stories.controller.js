@@ -19,11 +19,11 @@ function StoriesController ($stateParams, $location, StoriesService) {
 
     stories.backlog = _.filter(results, {'status': 'backlog'});
 
-    stories.storyTodo = _.filter(results, 'status', 'todo');
+    stories.storyTodo = _.filter(results, {'status': 'todo'});
 
-    stories.storyInProgress = _.filter(results, 'status', 'in_progress');
+    stories.storyInProgress = _.filter(results, {'status': 'in_progress'});
 
-    stories.storyDone = _.filter(results, 'status', 'done');
+    stories.storyDone = _.filter(results, {'status': 'done'});
   });
 
 }

@@ -46,9 +46,9 @@ describe('Stories - Unit Test', ()=>{
 
     getStoriesForWallId = _.filter(zulucodaScrumData.stories, (s) => { return s.wallId == 1});
     storyBacklog = _.filter(getStoriesForWallId, {'status': 'backlog'});
-    storyTodo = _.filter(getStoriesForWallId, 'status', 'todo');
-    storyInProgress = _.filter(getStoriesForWallId, 'status', 'in_progress');
-    storyDone = _.filter(getStoriesForWallId, 'status', 'done');
+    storyTodo = _.filter(getStoriesForWallId, {'status': 'todo'});
+    storyInProgress = _.filter(getStoriesForWallId, {'status': 'in_progress'});
+    storyDone = _.filter(getStoriesForWallId, {'status': 'done'});
 
     beforeEach(()=>{
       angular.mock.inject(($controller, $location, $q, $rootScope)=>{

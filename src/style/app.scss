@@ -2,32 +2,33 @@
  * Text Colours
  */
 
-$text-colour-danger: #a94442;
-$text-colour-primary: #337ab7;
-$text-colour-warning: #8a6d3b;
-$text-colour-success: #3c763d;
+$text-colour-danger: #ed4949;
+$text-colour-primary: #1c8ed7;
+$text-colour-warning: #FED42A;
+$text-colour-success: #20c05c;
 
 .text-colour-danger {
-  color: $text-colour-danger;
+  color: $text-colour-danger !important;
 }
 
 .text-colour-primary {
-  color: $text-colour-primary;
+  color: $text-colour-primary !important;
 }
 
 .text-colour-warning {
-  color: $text-colour-warning;
+  color: $text-colour-warning !important;
 }
 
 .text-colour-success {
-  color: $text-colour-success;
+  color: $text-colour-success !important;
 }
+
 
 
 /*
  * wall
  */
-.wall {
+.wall, .story {
   cursor: pointer;
 }
 
