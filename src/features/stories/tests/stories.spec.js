@@ -4,6 +4,9 @@
  * Copyright zulucoda - mfbproject
  */
 import stories from '../stories.index'
+import _ from 'lodash'
+
+let zulucodaScrumData = require('json-loader!./../../../public/data/zulucoda.scrum.data.json');
 
 describe('Stories - Unit Test', ()=>{
 
@@ -38,37 +41,50 @@ describe('Stories - Unit Test', ()=>{
   });
 
   describe('controller', ()=>{
-    let controller, stories, stateParams, story, location;
+    let controller, stories, stateParams, location, getStoriesForWallId, storiesService, q, rootScope;
+
+    getStoriesForWallId = _.find(zulucodaScrumData.stories, 'wallId', 1);
+
     beforeEach(()=>{
-      angular.mock.inject(($controller, StoryModule, $location)=>{
+      angular.mock.inject(($controller, $location, $q, $rootScope)=>{
         controller = $controller;
+        q = $q;
+        rootScope = $rootScope;
         stateParams = {
-          wallId: 100
+          wallId: 1
         };
-        story = StoryModule;
         location = $location;
+        storiesService = jasmine.createSpyObj('StoriesService', ['getAllByWallId']);
+        storiesService.getAllByWallId.and.returnValue(q.when(getStoriesForWallId));
       });
     });
 
     function initialiseController () {
       stories = controller('StoriesController',{
         $stateParams: stateParams,
-        StoryModule: story,
+        StoriesService: storiesService,
         $location: location
       });
+      rootScope.$digest();
     }
 
     describe('initialise controller', ()=>{
 
       it('should get wallId from state param', ()=>{
         initialiseController();
-        expect(stories.story.wallId).toBe(100);
+        expect(stories.currentWallId).toBe(1);
       });
 
       it('should redirect to walls when wallId state param is undefined', ()=>{
         stateParams.wallId = undefined;
         initialiseController();
         expect(location.path()).toEqual('/walls');
+      });
+
+      it('should get stories for wallId and set stories.stories', ()=>{
+        initialiseController();
+        expect(storiesService.getAllByWallId).toHaveBeenCalledWith(1);
+        expect(stories.stories).toEqual(getStoriesForWallId);
       });
 
     });

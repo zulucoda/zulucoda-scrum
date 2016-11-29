@@ -4,22 +4,23 @@
  * Copyright zulucoda - mfbproject
  */
 import angular from 'angular'
-import storyModule from '../modules/story.module'
+import StoriesService from '../services/stories.service'
 
-function StoriesController ($stateParams, $location, StoryModule) {
+function StoriesController ($stateParams, $location, StoriesService) {
 
   let stories = this;
 
-  stories.story = angular.copy(StoryModule.story);
+  stories.currentWallId = $stateParams.wallId;
+  if(!stories.currentWallId) return $location.path('/walls');
 
-  stories.story.wallId = $stateParams.wallId;
-
-  if(!stories.story.wallId) return $location.path('/walls');
+  StoriesService.getAllByWallId(stories.currentWallId).then((results)=>{
+    stories.stories = results;
+  });
 
 }
 
 export default angular.module('zulucoda.scrum.stories.controller', [
-  storyModule
+  StoriesService
 ])
   .controller('StoriesController', StoriesController)
   .name;

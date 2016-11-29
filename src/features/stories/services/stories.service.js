@@ -4,12 +4,15 @@
  * Copyright zulucoda - mfbproject
  */
 import angular from 'angular'
+import _ from 'lodash'
 
 function StoriesService ($http) {
+  let stories = [];
   return {
-    getAll: () => {
+    getAllByWallId: (wallId) => {
       return $http.get('/data/zulucoda.scrum.data.json').then((response) => {
-        return response.data.stories;
+        stories = response.data.stories;
+        return _.find(stories, 'wallId', wallId);
       });
     }
   }
