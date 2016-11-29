@@ -17,7 +17,7 @@ function StoriesController ($stateParams, $location, StoriesService) {
   StoriesService.getAllByWallId(stories.currentWallId).then((results)=>{
     stories.stories = results;
 
-    stories.backlog = _.filter(results, 'status', 'backlog');
+    stories.backlog = _.filter(results, {'status': 'backlog'});
 
     stories.storyTodo = _.filter(results, 'status', 'todo');
 

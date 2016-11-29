@@ -44,8 +44,8 @@ describe('Stories - Unit Test', ()=>{
     let controller, stories, stateParams, location, getStoriesForWallId, storiesService, q, rootScope, storyBacklog,
       storyTodo, storyInProgress, storyDone;
 
-    getStoriesForWallId = _.filter(zulucodaScrumData.stories, 'wallId', 1);
-    storyBacklog = _.filter(getStoriesForWallId, 'status', 'backlog');
+    getStoriesForWallId = _.filter(zulucodaScrumData.stories, (s) => { return s.wallId == 1});
+    storyBacklog = _.filter(getStoriesForWallId, {'status': 'backlog'});
     storyTodo = _.filter(getStoriesForWallId, 'status', 'todo');
     storyInProgress = _.filter(getStoriesForWallId, 'status', 'in_progress');
     storyDone = _.filter(getStoriesForWallId, 'status', 'done');
