@@ -6,6 +6,7 @@
 import angular from 'angular'
 import uiRouter from 'angular-ui-router'
 import routing from './routes/stories.routes'
+import StoriesController from './controllers/stories.controller'
 
-export default angular.module('zulucoda.scrum.stories', [uiRouter, routing])
+export default angular.module('zulucoda.scrum.stories', [uiRouter, routing, StoriesController])
   .name;

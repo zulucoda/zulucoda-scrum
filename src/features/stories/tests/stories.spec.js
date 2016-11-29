@@ -37,4 +37,42 @@ describe('Stories - Unit Test', ()=>{
     });
   });
 
+  describe('controller', ()=>{
+    let controller, stories, stateParams, story, location;
+    beforeEach(()=>{
+      angular.mock.inject(($controller, StoryModule, $location)=>{
+        controller = $controller;
+        stateParams = {
+          wallId: 100
+        };
+        story = StoryModule;
+        location = $location;
+      });
+    });
+
+    function initialiseController () {
+      stories = controller('StoriesController',{
+        $stateParams: stateParams,
+        StoryModule: story,
+        $location: location
+      });
+    }
+
+    describe('initialise controller', ()=>{
+
+      it('should get wallId from state param', ()=>{
+        initialiseController();
+        expect(stories.story.wallId).toBe(100);
+      });
+
+      it('should redirect to walls when wallId state param is undefined', ()=>{
+        stateParams.wallId = undefined;
+        initialiseController();
+        expect(location.path()).toEqual('/walls');
+      });
+
+    });
+
+  });
+
 });
