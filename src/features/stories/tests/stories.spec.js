@@ -42,7 +42,7 @@ describe('Stories - Unit Test', ()=>{
 
   describe('controller', ()=>{
     let controller, stories, stateParams, location, getStoriesForWallId, storiesService, q, rootScope, storyBacklog,
-      storyTodo, storyInProgress, storyDone;
+      storyTodo, storyInProgress, storyDone, fakeModalInstance, storyModalOptions, _storyModule, uibModal, actualOptions;
 
     getStoriesForWallId = _.filter(zulucodaScrumData.stories, (s) => { return s.wallId == 1});
     storyBacklog = _.filter(getStoriesForWallId, {'status': 'backlog'});
@@ -50,8 +50,40 @@ describe('Stories - Unit Test', ()=>{
     storyInProgress = _.filter(getStoriesForWallId, {'status': 'in_progress'});
     storyDone = _.filter(getStoriesForWallId, {'status': 'done'});
 
+    fakeModalInstance = {
+      close: jasmine.createSpy('modalInstance.close').and.callFake(function (data) {
+        if(this.result.confirmCB && typeof this.result.confirmCB === 'function') {
+          this.result.confirmCB(data);
+        }
+      }),
+      dismiss: jasmine.createSpy('modalInstance.dismiss').and.callFake(function (reason) {
+        if(this.result.cancelCB && typeof this.result.cancelCB === 'function') {
+          this.result.cancelCB(reason);
+        }
+      }),
+      result: {
+        then: jasmine.createSpy('modalInstance.result.then').and.callFake(function (confirm, cancel) {
+          this.confirmCB = confirm || this.confirmCB;
+          this.cancelCB = cancel || this.cancelCB;
+        }),
+        catch: jasmine.createSpy('modalInstance.result.catch').and.callFake(function (cb) {
+          this.cancelCB = cb || this.cancelCB;
+        })
+      }
+    };
+
+    storyModalOptions = {
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      template: require('./../partials/stories.modal.html'),
+      controller: 'StoryModalController',
+      controllerAs: 'storyModal',
+      size: 'lg'
+    };
+
     beforeEach(()=>{
-      angular.mock.inject(($controller, $location, $q, $rootScope)=>{
+      angular.mock.inject(($controller, $location, $q, $rootScope, StoryModule)=>{
         controller = $controller;
         q = $q;
         rootScope = $rootScope;
@@ -61,6 +93,13 @@ describe('Stories - Unit Test', ()=>{
         location = $location;
         storiesService = jasmine.createSpyObj('StoriesService', ['getAllByWallId']);
         storiesService.getAllByWallId.and.returnValue(q.when(getStoriesForWallId));
+        _storyModule = StoryModule;
+
+        uibModal = jasmine.createSpyObj('$uibModal', ['open']);
+        uibModal.open.and.callFake((options)=>{
+          actualOptions = options;
+          return fakeModalInstance ;
+        });
       });
     });
 
@@ -68,7 +107,8 @@ describe('Stories - Unit Test', ()=>{
       stories = controller('StoriesController',{
         $stateParams: stateParams,
         StoriesService: storiesService,
-        $location: location
+        $location: location,
+        $uibModal: uibModal,
       });
       rootScope.$digest();
     }
@@ -113,6 +153,34 @@ describe('Stories - Unit Test', ()=>{
       });
 
     });
+
+    describe('controller methods', ()=>{
+
+      describe('wall.open', ()=>{
+        it('should open ui story modal', ()=>{
+          initialiseController();
+          stories.currentStory = {};
+          stories.open();
+          expect(uibModal.open).toHaveBeenCalledWith  (storyModalOptions);
+        });
+        it('should call modalInstance.result on modal close', ()=>{
+          initialiseController();
+          stories.open();
+          let modalInstance = uibModal.open(storyModalOptions);
+          let currentStory = _storyModule.story;
+          currentStory.name = 'some new wall name';
+          currentStory.assignedTo = 'some user';
+          currentStory.description = 'some description';
+          currentStory.estimate = 'some estimate';
+          currentStory.status = 'some status';
+          currentStory.wallId = 1;
+          modalInstance.close(currentStory);
+          rootScope.$digest();
+          expect(modalInstance.result.then).toHaveBeenCalled();
+          // expect(wallsService.add).toHaveBeenCalledWith(currentStory);
+        });
+      });
+    })
 
   });
 

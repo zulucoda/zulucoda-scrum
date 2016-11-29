@@ -6,8 +6,9 @@
 import angular from 'angular'
 import StoriesService from '../services/stories.service'
 import _ from 'lodash'
+import StoryModalController from './story.modal.controller'
 
-function StoriesController ($stateParams, $location, StoriesService) {
+function StoriesController ($stateParams, $location, StoriesService, $uibModal, $state) {
 
   let stories = this;
 
@@ -26,10 +27,29 @@ function StoriesController ($stateParams, $location, StoriesService) {
     stories.storyDone = _.filter(results, {'status': 'done'});
   });
 
+  stories.open = () => {
+
+    let modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      template: require('./../partials/stories.modal.html'),
+      controller: 'StoryModalController',
+      controllerAs: 'storyModal',
+      size: 'lg'
+    });
+
+    modalInstance.result.then(function (currentStory) {
+      // WallsService.add(currentStory);
+    });
+
+  };
+
 }
 
 export default angular.module('zulucoda.scrum.stories.controller', [
-  StoriesService
+  StoriesService,
+  StoryModalController
 ])
   .controller('StoriesController', StoriesController)
   .name;
