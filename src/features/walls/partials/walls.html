@@ -25,35 +25,35 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">{{currentWall.name}}</h3>
                     </div>
-                    <div class="panel-body">
-                        <!--<div class="ov-widget">-->
-                            <!--<div class="ov-widget__list">-->
-                                <!--<div class="ov-widget__item ov-widget__item_dec">-->
-                                    <!--<div class="ov-widget__value text-colour-danger">300</div>-->
-                                    <!--<div class="ov-widget__info">-->
-                                        <!--<div class="ov-widget__title">Backlog</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="ov-widget__item ov-widget__item_warn">-->
-                                    <!--<div class="ov-widget__value text-colour-warning">100</div>-->
-                                    <!--<div class="ov-widget__info">-->
-                                        <!--<div class="ov-widget__title">To Do</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="ov-widget__item ov-widget__item_tack">-->
-                                    <!--<div class="ov-widget__value text-colour-primary">10</div>-->
-                                    <!--<div class="ov-widget__info">-->
-                                        <!--<div class="ov-widget__title">In Progress</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="ov-widget__item ov-widget__item_inc">-->
-                                    <!--<div class="ov-widget__value">950</div>-->
-                                    <!--<div class="ov-widget__info">-->
-                                        <!--<div class="ov-widget__title">Done</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <div class="panel-body" ng-init="wall.getWallStats(currentWall);">
+                        <div class="ov-widget">
+                            <div class="ov-widget__list">
+                                <div class="ov-widget__item ov-widget__item_dec">
+                                    <div class="ov-widget__value text-colour-danger">{{currentWall.backlog.length}}</div>
+                                    <div class="ov-widget__info">
+                                        <div class="ov-widget__title">Backlog</div>
+                                    </div>
+                                </div>
+                                <div class="ov-widget__item ov-widget__item_warn">
+                                    <div class="ov-widget__value text-colour-warning">{{currentWall.storyTodo.length}}</div>
+                                    <div class="ov-widget__info">
+                                        <div class="ov-widget__title">To Do</div>
+                                    </div>
+                                </div>
+                                <div class="ov-widget__item ov-widget__item_tack">
+                                    <div class="ov-widget__value text-colour-primary">{{currentWall.storyInProgress.length}}</div>
+                                    <div class="ov-widget__info">
+                                        <div class="ov-widget__title">In Progress</div>
+                                    </div>
+                                </div>
+                                <div class="ov-widget__item ov-widget__item_inc">
+                                    <div class="ov-widget__value">{{currentWall.storyDone.length}}</div>
+                                    <div class="ov-widget__info">
+                                        <div class="ov-widget__title">Done</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

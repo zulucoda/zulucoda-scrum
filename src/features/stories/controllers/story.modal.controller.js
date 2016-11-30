@@ -26,5 +26,5 @@ function StoryModalController ($uibModalInstance, StoryModule) {
 export default angular.module('zulucoda.scrum.story.modal.controller', [
   storyModule,
   angularUi
-]).controller('StoryModalController', StoryModalController)
+]).controller('StoryModalController', ['$uibModalInstance', 'StoryModule', StoryModalController])
   .name;

@@ -3,7 +3,7 @@
  * Copyright mfbproject.co.za - muzi@mfbproject.co.za
  * Copyright zulucoda - mfbproject
  */
-import angular from 'angular';
+import angular from 'angular'
 
 function WallsService ($http, $q) {
   let walls = [];
@@ -26,5 +26,5 @@ function WallsService ($http, $q) {
 }
 
 export default angular.module('zulucoda.scrum.walls.service', [])
-  .service('WallsService', WallsService)
+  .service('WallsService', ['$http', '$q', WallsService ])
   .name;

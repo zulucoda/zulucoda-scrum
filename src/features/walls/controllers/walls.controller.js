@@ -6,8 +6,10 @@
 import angular from 'angular'
 import wallsService from '../services/walls.service'
 import wallsModalController from './walls.modal.controller'
+import storiesService from '../../stories/services/stories.service'
+import _ from 'lodash'
 
-function WallsController(WallsService, $uibModal, $state) {
+function WallsController(WallsService, $uibModal, $state, StoriesService) {
 
   let wall = this;
 
@@ -38,11 +40,25 @@ function WallsController(WallsService, $uibModal, $state) {
   wall.viewStories = (wallId) => {
     $state.go('stories', {wallId: wallId });
   };
+
+  wall.getWallStats = (currentWall) => {
+    StoriesService.getAllByWallId(currentWall.id).then((results) => {
+
+      currentWall.backlog = _.filter(results, { 'status': 'backlog' });
+
+      currentWall.storyTodo = _.filter(results, { 'status': 'todo' });
+
+      currentWall.storyInProgress = _.filter(results, { 'status': 'in_progress' });
+
+      currentWall.storyDone = _.filter(results, { 'status': 'done' });
+    });
+  }
 }
 
 export default angular.module('zulucoda.scrum.walls.controller', [
   wallsService,
-  wallsModalController
+  wallsModalController,
+  storiesService
 ])
-  .controller('WallsController', WallsController)
+  .controller('WallsController', ['WallsService', '$uibModal', '$state', 'StoriesService', WallsController])
   .name;

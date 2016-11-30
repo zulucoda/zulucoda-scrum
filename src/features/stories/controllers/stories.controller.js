@@ -71,5 +71,6 @@ export default angular.module('zulucoda.scrum.stories.controller', [
   StoryModalController,
   storyModule
 ])
-  .controller('StoriesController', StoriesController)
+  .controller('StoriesController', ['$stateParams', '$location', 'StoriesService', '$uibModal', 'StoryModule',
+    StoriesController])
   .name;

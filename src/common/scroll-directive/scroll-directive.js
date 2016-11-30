@@ -21,5 +21,5 @@ function scrollDirective($window) {
 }
 
 export default angular.module('zulucoda.scrum.scroll.directive', [])
-  .directive('scrollDirective', scrollDirective)
+  .directive('scrollDirective', ['$window', scrollDirective])
   .name;

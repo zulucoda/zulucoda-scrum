@@ -7,7 +7,8 @@
     "server": "webpack-dev-server --history-api-fallback --inline --progress",
     "test": "karma start",
     "test-watch": "karma start --auto-watch --no-single-run",
-    "start": "npm run server"
+    "start": "npm run server",
+    "other": "export NODE_ENV=production && rimraf dist && webpack --bail --progress --profile"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/zulucoda/zulucoda-scrum/issues"
   },
-  "homepage": "https://github.com/zulucoda/zulucoda-scrum/",
+  "homepage": "http://zulucoda-scrum.mfbproject.co.za/",
   "dependencies": {
     "angular": "^1.5.0",
     "angular-ui-bootstrap": "^2.3.0",
@@ -54,6 +55,8 @@
     "karma-webpack": "^1.7.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "ng-annotate-loader": "^0.2.0",
+    "ng-annotate-webpack-plugin": "^0.1.3",
     "node-libs-browser": "^2.0.0",
     "null-loader": "^0.1.1",
     "phantomjs-prebuilt": "^2.1.4",

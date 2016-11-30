@@ -3,7 +3,7 @@
  * Copyright mfbproject.co.za - muzi@mfbproject.co.za
  * Copyright zulucoda - mfbproject
  */
-import angular from 'angular';
+import angular from 'angular'
 
 function WallModule () {
  return {
@@ -15,5 +15,5 @@ function WallModule () {
 }
 
 export default angular.module('zulucoda.scrum.walls.module', [])
-  .factory('WallModule', WallModule)
+  .factory('WallModule', [WallModule])
   .name;

@@ -3,10 +3,8 @@
  * Copyright mfbproject.co.za - muzi@mfbproject.co.za
  * Copyright zulucoda - mfbproject
  */
-import angular from 'angular';
-
-import wallModule from './../modules/wall.module';
-
+import angular from 'angular'
+import wallModule from './../modules/wall.module'
 
 function WallsModalController ($uibModalInstance, WallModule) {
 
@@ -27,5 +25,5 @@ function WallsModalController ($uibModalInstance, WallModule) {
 export default angular.module('zulucoda.scrum.walls.modal.controller', [
   wallModule
 ])
-  .controller('WallsModalController', WallsModalController)
+  .controller('WallsModalController', ['$uibModalInstance', 'WallModule', WallsModalController])
   .name;

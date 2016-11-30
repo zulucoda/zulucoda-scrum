@@ -33,5 +33,5 @@ function StoriesService ($http, $q) {
 }
 
 export default angular.module('zulucoda.scrum.stories.service', [])
-  .service('StoriesService', StoriesService)
+  .service('StoriesService', ['$http', '$q', StoriesService])
   .name;

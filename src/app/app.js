@@ -8,9 +8,9 @@ import scroll from '../common/scroll-directive/scroll-directive'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../../node_modules/font-awesome/css/font-awesome.css'
 import '../../node_modules/jquery.scrollbar/jquery.scrollbar.css'
-import '../style/lib/right.dark.css'
+import '../public/style/lib/right.dark.css'
 import 'font-awesome-webpack'
-import '../style/app.css'
+import '../public/style/app.css'
 
 require("expose?$!jquery.scrollbar");
 require("expose?$!jquery");

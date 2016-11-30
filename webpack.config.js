@@ -6,6 +6,7 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 /**
  * Env
@@ -119,7 +120,9 @@ module.exports = function makeWebpackConfig () {
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: "url-loader?limit=10000&minetype=application/font-woff"
-    }, { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }]
+    },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+      ]
   };
 
   // ISTANBUL LOADER
@@ -185,6 +188,11 @@ module.exports = function makeWebpackConfig () {
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
       // Dedupe modules in the output
       new webpack.optimize.DedupePlugin(),
+
+      new ngAnnotatePlugin({
+        add: true,
+        // other ng-annotate options here
+      }),
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode

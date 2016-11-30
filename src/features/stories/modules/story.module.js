@@ -20,5 +20,5 @@ function StoryModule () {
 }
 
 export default angular.module('zulucoda.scrum.story.module', [])
-  .factory('StoryModule', StoryModule)
+  .factory('StoryModule', [StoryModule])
   .name;

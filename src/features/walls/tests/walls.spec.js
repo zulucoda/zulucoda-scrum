@@ -49,7 +49,7 @@ describe('Walls - Unit Test',() =>{
 
   describe('controller', ()=> {
     let controller, wall, rootScope, wallsService, uibModal, fakeModalInstance, wallModalOptions, actualOptions,
-      _wallModule, state;
+      _wallModule, state, storiesService;
 
     fakeModalInstance = {
       close: jasmine.createSpy('modalInstance.close').and.callFake(function (data) {
@@ -98,13 +98,17 @@ describe('Walls - Unit Test',() =>{
       _wallModule = WallModule;
 
       state = $state;
+
+      storiesService = jasmine.createSpyObj('StoriesService', ['getAllByWallId']);
+      storiesService.getAllByWallId.and.returnValue($q.when(zulucodaScrumData.stories));
     }));
 
     function initialiseController() {
       wall = controller('WallsController', {
         WallsService: wallsService,
         $uibModal: uibModal,
-        $state: state
+        $state: state,
+        StoriesService: storiesService
       });
       rootScope.$digest();
     }
@@ -153,6 +157,18 @@ describe('Walls - Unit Test',() =>{
           let wallId = 1;
           wall.viewStories(wallId);
           expect(state.go).toHaveBeenCalledWith('stories', {wallId: wallId});
+        });
+      });
+
+      describe('wall.wall.getWallStats', ()=>{
+        beforeEach(()=>{
+          initialiseController();
+        });
+
+        it('should StoriesService.getAllByWallId', ()=>{
+          wall.getWallStats({id:1});
+          rootScope.$digest();
+          expect(storiesService.getAllByWallId).toHaveBeenCalledWith(1);
         });
       });
     });
