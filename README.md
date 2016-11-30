@@ -9,6 +9,8 @@ MVP: The application allows Product Owners to:
 * Assign stories to team members
 * Move stories out of the backlog and into new states such as todo, in progress and done
 
+### Live Demo http://zulucoda-scrum.mfbproject.co.za/
+
 # Table of Contents
 
 * [Getting Started](#getting-started)
