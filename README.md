@@ -19,6 +19,7 @@ MVP: The application allows Product Owners to:
     * [Running the app](#running-the-app)
     * [Developing](#developing)
     * [Testing](#testing)
+* [Stack Used](#stack-used)
 * [License](#license)
 
 # Getting Started
@@ -56,6 +57,16 @@ It will start a local server using `webpack-dev-server` which will watch, build 
 
 * single run: `npm test`
 * live mode (TDD style): `npm run test-watch`
+
+# Stack Used:
+
+* Angular*Webpack workflow
+* ES6
+* SASS
+* Bootstrap
+* Jasmine (Test)
+* Karma (Test Runner)
+* Babel (ES6)
 
 # License
 
